@@ -133,7 +133,7 @@ export const signinUser = async (req: Request, res: Response) => {
               id: user._id,
             },
             "refreshTokenSecret",
-            { expiresIn: "5m" },
+            { expiresIn: "1m" },
           );
 
           res.status(200).json({

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const url = "http://localhost:7788/api/auth";
 const url2 = "http://localhost:7788/api/game";

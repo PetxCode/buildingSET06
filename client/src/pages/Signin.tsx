@@ -3,9 +3,11 @@ import Button from "../components/Static/Button";
 import { signin } from "../utils/APIs";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser, updateToken } from "../Global/globalState";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: any) => state.user);
   console.log(user);
   const [email, setEmail] = useState<string>("");
@@ -34,15 +36,29 @@ const Signin = () => {
         <br />
         <Button
           title="Sign in"
-          bb="bg-purple-600"
+          bb="bg-teal-400"
+          cc="text-white"
           onClick={() => {
             signin({ email, password }).then((res) => {
               dispatch(currentUser(res?.data.data));
               dispatch(updateToken(res?.data.data.accessToken));
               console.log("Clicked");
+              navigate("/");
             });
           }}
         />
+
+        <div
+          className="mt-8 bg-yellow-200 w-[100px] h-10 flex justify-center items-center hover:animate-bounce hover:cursor-pointer"
+          onMouseEnter={() => {
+            console.log("Show");
+          }}
+          onMouseLeave={() => {
+            console.log("stop Showing");
+          }}
+        >
+          PUSH
+        </div>
       </div>
     </div>
   );

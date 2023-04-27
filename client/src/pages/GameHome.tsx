@@ -7,13 +7,17 @@ import { usePermit } from "../hooks/usePermit";
 const GameHome = () => {
   const dispatch = useDispatch();
   const game = usePermit();
+
   const user = useSelector((state: any) => state.user);
   const token = useSelector((state: any) => state.token);
 
   return (
     <div className="h-[calc(100vh-5rem)] flex items-center w-100% bg-slate-400 flex-col  ">
       <br />
+
       <br />
+      <br />
+
       <Button
         title="Sign in"
         bb="bg-white"
