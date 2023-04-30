@@ -4,7 +4,7 @@ import { auth } from "../auth";
 
 const router: Router = express.Router();
 
-router.route("/").get(auth, getGames);
-router.route("/create").post(auth, createGames);
+router.route("/").get(getGames);
+router.route("/create").post(createGames);
 
 export default router;

@@ -3,6 +3,7 @@ import Layout from "../components/Block/Layout";
 import Signin from "../pages/Signin";
 import GameHome from "../pages/GameHome";
 import CreateGame from "../pages/CreateGame";
+import PrivateRoute from "./privateRoute"
 
 export const mainRoute = createBrowserRouter([
   {
@@ -11,7 +12,10 @@ export const mainRoute = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <GameHome />,
+        element:
+          <PrivateRoute>
+            <GameHome />
+          </PrivateRoute>,
       },
       {
         index: true,
@@ -20,7 +24,9 @@ export const mainRoute = createBrowserRouter([
       },
       {
         index: true,
-        element: <CreateGame />,
+        element:
+          <PrivateRoute><CreateGame /></PrivateRoute>
+        ,
         path: "create-game",
       },
     ],

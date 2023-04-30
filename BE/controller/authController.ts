@@ -126,7 +126,7 @@ export const signinUser = async (req: Request, res: Response) => {
               id: user._id,
             },
             "accessTokenSecret",
-            { expiresIn: "25s" },
+            { expiresIn: "20s" },
           );
           const refreshToken = jwt.sign(
             {

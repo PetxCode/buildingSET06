@@ -31,3 +31,13 @@ export const refreshGame = async (token: string) => {
     console.log(error);
   }
 };
+
+
+export const viewUser = async (id: string) => {
+  try {
+   
+    return await axios.get(`${url}/${id}`, );
+  } catch (error) {
+    console.log(error);
+  }
+};

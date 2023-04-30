@@ -23,7 +23,7 @@ const globalState = createSlice({
     },
 
     removeToken: (state, { payload }) => {
-      state.token = payload;
+      state.token = null;
     },
 
     logOut: (state) => {

@@ -48,17 +48,7 @@ const Signin = () => {
           }}
         />
 
-        <div
-          className="mt-8 bg-yellow-200 w-[100px] h-10 flex justify-center items-center hover:animate-bounce hover:cursor-pointer"
-          onMouseEnter={() => {
-            console.log("Show");
-          }}
-          onMouseLeave={() => {
-            console.log("stop Showing");
-          }}
-        >
-          PUSH
-        </div>
+
       </div>
     </div>
   );
