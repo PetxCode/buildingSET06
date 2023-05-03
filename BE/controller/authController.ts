@@ -3,6 +3,7 @@ import userModel from "../model/authModel";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { verifiedMail } from "../utils/email";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -99,6 +100,9 @@ export const createUser = async (req: Request, res: Response) => {
       password: hasked,
       token,
     });
+
+    verifiedMail(user);
+
     res.status(200).json({
       message: "Single user found",
       data: user,

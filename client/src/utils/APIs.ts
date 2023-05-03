@@ -41,3 +41,11 @@ export const viewUser = async (id: string) => {
     console.log(error);
   }
 };
+
+export const verifyUser = async (id: string) => {
+  try {
+    return await axios.get(`${url}/${id}/verify`);
+  } catch (error) {
+    console.log(error);
+  }
+};
