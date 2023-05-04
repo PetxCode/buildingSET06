@@ -6,6 +6,7 @@ import CreateGame from "../pages/CreateGame";
 import ConfirmPage from "../pages/ConfirmPage";
 import Just from "../pages/Just";
 import PrivateRoute from "./privateRoute"
+import Charts from "../pages/Charts";
 
 export const mainRoute = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ export const mainRoute = createBrowserRouter([
           <PrivateRoute>
             <GameHome />
           </PrivateRoute>,
+      },
+      {
+        index: true,
+        element: <Charts />,
+        path: "chart",
       },
       {
         index: true,
