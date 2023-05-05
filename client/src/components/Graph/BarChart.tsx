@@ -1,4 +1,7 @@
 import React from 'react';
+import lodash from "lodash"
+import { useMediaQuery } from 'react-responsive'
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -36,14 +39,21 @@ export const options = {
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 
-// const dataFunct:any = (min:number, max:number) => {
-//     Math.floor
-// }
-
 const arr1 = [1, 7, 4, 9, 10, 66, 75]
 const arr2 = [90, 6, 4, 99, 30, 60, 33]
 
 const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+
+const players = [
+    { name: "Antoine Griezmann", team: "France" },
+    { name: "Luka Modrić", team: "Croatia" },
+    { name: "Ivan Rakitić", team: "Croatia" },
+    { name: "Paul Pogba", team: "France" },
+];
+
+const player = lodash.groupBy(players, "team")
+
+console.log(lodash.sortBy(players, "team"))
 
 const dataData2: any = []
 const dataData: any = []
@@ -65,9 +75,6 @@ Array.from({ length: 10, }, () => {
             value: random(82, 109)
         })
 })
-
-// const show = faker.datatype.number({ min: 3, max: 17 })
-
 
 export const data: any = {
     labels: dataData.map((el: any) => el.items),

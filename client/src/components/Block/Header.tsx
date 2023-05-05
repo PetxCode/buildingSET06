@@ -22,6 +22,11 @@ const Header = () => {
             </Link>
           </div>
           <div className="text-[19px] font-bold cursor-pointer hover:scale-105 hover:text-red-200 ease-in-out duration-300 uppercase mx-4">
+            <Link to="/response" className="no-underline">
+              response
+            </Link>
+          </div>
+          <div className="text-[19px] font-bold cursor-pointer hover:scale-105 hover:text-red-200 ease-in-out duration-300 uppercase mx-4">
             <Link to="/just" className="no-underline">
               just
             </Link>

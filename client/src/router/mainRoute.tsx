@@ -7,6 +7,9 @@ import ConfirmPage from "../pages/ConfirmPage";
 import Just from "../pages/Just";
 import PrivateRoute from "./privateRoute"
 import Charts from "../pages/Charts";
+import { Responsiveness } from "../components/Graph/Responsiveness";
+import ConfirmAdminPage from "../pages/ComfirmAdmin";
+import FinallyVerifiedStaff from "../pages/StaffVerified";
 
 export const mainRoute = createBrowserRouter([
   {
@@ -22,6 +25,11 @@ export const mainRoute = createBrowserRouter([
       },
       {
         index: true,
+        element: <Responsiveness />,
+        path: "response",
+      },
+      {
+        index: true,
         element: <Charts />,
         path: "chart",
       },
@@ -34,6 +42,16 @@ export const mainRoute = createBrowserRouter([
         index: true,
         element: <ConfirmPage />,
         path: "confirm/:id/:token",
+      },
+      {
+        index: true,
+        element: <ConfirmAdminPage />,
+        path: "confirm-admin/:id/:token",
+      },
+      {
+        index: true,
+        element: <FinallyVerifiedStaff />,
+        path: "verify-staff/:id/:token",
       },
       {
         index: true,

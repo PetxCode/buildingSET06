@@ -53,16 +53,29 @@ export const updateUser = async (req: Request, res: Response) => {
 export const verifiedUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name } = req.body;
-    const user = await userModel.findByIdAndUpdate(
-      id,
-      { token: "", verified: true },
-      { new: true },
-    );
-    res.status(200).json({
-      message: "Single user verified",
-      data: user,
-    });
+    const { OTP } = req.body;
+
+    const staff = await userModel.findById(id);
+
+    console.log(staff);
+
+    if (staff) {
+      if (OTP === staff.OTP) {
+        const staffData = await userModel.findByIdAndUpdate(
+          id,
+          { token: "", verified: true },
+          { new: true },
+        );
+        res.status(200).json({
+          message: "Single user verified",
+          data: staffData,
+        });
+      }
+    } else {
+      res.status(404).json({
+        message: "Staff not found",
+      });
+    }
   } catch (error) {
     res.status(404).json({
       message: "Error getting users",
@@ -88,28 +101,64 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, email, password } = req.body;
+    const { companyName, name, email, password } = req.body;
     const token = crypto.randomBytes(48).toString("hex");
+
+    const admin = await adminModel.findOne({ companyName });
+
+    // get OTP
+    const OTP = crypto.randomBytes(3).toString("hex");
+    // const admin = awa
 
     const salt = await bcrypt.genSalt(10);
     const hasked = await bcrypt.hash(password, salt);
 
     const user = await userModel.create({
+      companyName,
       name,
       email,
       password: hasked,
       token,
+      OTP,
     });
 
-    verifiedMail(user);
+    const adminData: any = admin?.staff.push(
+      new mongoose.Types.ObjectId(user?._id),
+    );
+
+    verifyStaffEmail(user);
+    verifyStaffEmailByAdmin(user, admin);
 
     res.status(200).json({
       message: "Single user found",
-      data: user,
+      data: { user, adminData },
     });
   } catch (error) {
     res.status(404).json({
-      message: "Error gettign users",
+      message: error.message,
+    });
+  }
+};
+
+export const finalVerification = async (req: Request, res: Response) => {
+  try {
+    const { refreshToken } = req.body;
+    const { id } = req.params;
+
+    const staff = await userModel.findOne({ _id: id });
+
+    const admin = await adminModel.findOne({ companyName: staff?.companyName });
+
+    finalVerifyAdminEmail(staff, admin);
+    finalVerifyStaffEmail(staff);
+
+    return res.status(200).json({
+      message: "Admin and User data",
+      data: { staff, admin },
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Error getting Games",
     });
   }
 };
@@ -191,6 +240,82 @@ export const refresh = async (req: Request, res: Response) => {
           data: { accessToken, refreshToken },
         });
       }
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Error getting Games",
+    });
+  }
+};
+
+import lodash from "lodash";
+import adminModel from "../model/adminModel";
+import mongoose from "mongoose";
+import {
+  finalVerifyAdminEmail,
+  finalVerifyStaffEmail,
+  verifyStaffEmail,
+  verifyStaffEmailByAdmin,
+} from "../utils/HEEmail";
+
+const random = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min)) + min;
+
+const dataData: any = [];
+const dataData1: any = [];
+const dataData2: any = [];
+const dataData3: any = [];
+const dataData4: any = [];
+
+Array.from({ length: 10 }, () => {
+  const letters: string = "abcdefghijklmnopqrstuvwxyz";
+  dataData.push({
+    items: letters[Math.floor(Math.random() * letters.length)],
+    cost: random(20, 100),
+  });
+});
+
+Array.from({ length: 10 }, () => {
+  const letters: string = "abcdefghijklmnopqrstuvwxyz";
+  dataData2.push({
+    items: letters[Math.floor(Math.random() * letters.length)],
+    value: random(82, 109),
+  });
+});
+
+Array.from({ length: 10 }, () => {
+  const letters: string = "abcdefghijklmnopqrstuvwxyz";
+  dataData3.push({
+    items: letters[Math.floor(Math.random() * letters.length)],
+    value: random(82, 109),
+  });
+});
+
+Array.from({ length: 10 }, () => {
+  const letters: string = "abcdefghijklmnopqrstuvwxyz";
+  dataData4.push({
+    items: letters[Math.floor(Math.random() * letters.length)],
+    value: random(82, 109),
+  });
+});
+
+Array.from({ length: 10 }, () => {
+  const letters: string = "abcdefghijklmnopqrstuvwxyz";
+  dataData1.push({
+    items: letters[Math.floor(Math.random() * letters.length)],
+    value: random(82, 109),
+  });
+});
+
+export const forYes = async (req: Request, res: Response) => {
+  try {
+    console.log(dataData);
+
+    const newData = lodash.sortBy(dataData, "cost");
+    const newData1 = lodash.groupBy(dataData, "items");
+
+    res.json({
+      data: { newData, newData1 },
     });
   } catch (error) {
     res.status(404).json({

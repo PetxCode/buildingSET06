@@ -17,8 +17,7 @@ const url = "http://localhost:5173/confirm";
 
 export const verifiedMail = async (user: any) => {
   const accessToken: any = await oAuth.getAccessToken();
-  const newAccess =
-    "ya29.a0AWY7CkmQGDQJMM2-mqmfwgskj84KritNYQ06pP8nWW7C78AVX26Sg0gdql37VeuYSp4EK4liI44_DvXMfPJ2wFhV_lQRDG9jDxNJA2c7Pb2xbGQSA80cFGn0QvmpwZ5mebs4ttHHj2zpRVwcxDKsaLSvOLqx7poaCgYKAbYSARMSFQG1tDrp_B1fr5GwcrWsrq3APunSuw0166";
+
   const transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
